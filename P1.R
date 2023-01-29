@@ -108,5 +108,71 @@ cat("B Weekend Nightttime Min: ", min(B_weekend_nighttime$Global_reactive_power)
 
 
 
+# Part 3: Calculating average Global_intensity values, Linear and Polynomial Regression, graphing results
+Weekday_day_averages <- subset(A_weekday_daytime, select = c("Time", "Global_intensity"))
+Weekday_day_averages <- aggregate(Weekday_day_averages$Global_intensity ~ format(Weekday_day_averages$Time, "%H:%M"), Weekday_day_averages, mean)
+colnames(Weekday_day_averages)[1] <- "Time"
+colnames(Weekday_day_averages)[2] <- "Global_intensity_avg"
+head(Weekday_day_averages)
 
+Weekday_night_averages <- subset(A_weekday_nighttime, select = c("Time", "Global_intensity"))
+Weekday_night_averages <- aggregate(Weekday_night_averages$Global_intensity ~ format(Weekday_night_averages$Time, "%H:%M"), Weekday_night_averages, mean)
+colnames(Weekday_night_averages)[1] <- "Time"
+colnames(Weekday_night_averages)[2] <- "Global_intensity_avg"
+head(Weekday_night_averages)
+
+Weekend_day_averages <- subset(A_weekend_daytime, select = c("Time", "Global_intensity"))
+Weekend_day_averages <- aggregate(Weekend_day_averages$Global_intensity ~ format(Weekend_day_averages$Time, "%H:%M"), Weekend_day_averages, mean)
+colnames(Weekend_day_averages)[1] <- "Time"
+colnames(Weekend_day_averages)[2] <- "Global_intensity_avg"
+
+Weekend_night_averages <- subset(A_weekend_nighttime, select = c("Time", "Global_intensity"))
+Weekend_night_averages <- aggregate(Weekend_night_averages$Global_intensity ~ format(Weekend_night_averages$Time, "%H:%M"), Weekend_night_averages, mean)
+colnames(Weekend_night_averages)[1] <- "Time"
+colnames(Weekend_night_averages)[2] <- "Global_intensity_avg"
+
+# Weekday daytime
+Weekday_day_fit_linear <- lm(Global_intensity_avg ~ as.numeric(hm(Time)), data = Weekday_day_averages)
+Weekday_day_fit_polynomial <- lm(Global_intensity_avg~poly(as.numeric(hm(Time)),4,raw=TRUE), data=Weekday_day_averages)
+summary(Weekday_day_fit_linear)
+summary(Weekday_day_fit_polynomial)
+
+# Weekday nigttime
+Weekday_night_fit_linear <- lm(Global_intensity_avg ~ as.numeric(hm(Time)), data = Weekday_night_averages)
+Weekday_night_fit_polynomial <- lm(Global_intensity_avg~poly(as.numeric(hm(Time)),4,raw=TRUE), data=Weekday_night_averages)
+summary(Weekday_night_fit_linear)
+summary(Weekday_night_fit_polynomial)
+
+# Weekend daytime
+Weekend_day_fit_linear <- lm(Global_intensity_avg ~ as.numeric(hm(Time)), data = Weekend_day_averages)
+Weekend_day_fit_polynomial <- lm(Global_intensity_avg~poly(as.numeric(hm(Time)),4,raw=TRUE), data=Weekend_day_averages)
+summary(Weekend_day_fit_linear)
+summary(Weekend_day_fit_polynomial)
+
+
+# Weekend nighttime
+Weekend_night_fit_linear <- lm(Global_intensity_avg ~ as.numeric(hm(Time)), data = Weekend_night_averages)
+Weekend_night_fit_polynomial<- lm(Global_intensity_avg~poly(as.numeric(hm(Time)),4,raw=TRUE), data=Weekend_night_averages)
+summary(Weekend_night_fit_linear)
+summary(Weekend_night_fit_polynomial)
+
+# Graph linear fits
+ggplot(data=Weekday_day_averages, mapping=aes(x=Time, y=Global_intensity_avg)) + 
+  geom_line(aes(y=predict(Weekday_day_fit_linear)), color="red", group=1) + 
+  geom_line(aes(y=predict(Weekday_night_fit_linear)), color="blue", group=2) +
+  geom_line(aes(y=predict(Weekend_day_fit_linear)), color="green", group=3) +
+  geom_line(aes(y=predict(Weekend_night_fit_linear)), color="pink", group=4)+
+  ggtitle("Linear Fits") +
+  ylab("Average Global Intensity") + 
+  xlab("Time")
+  
+# Graph poly fits
+ggplot(data=Weekday_day_averages, mapping=aes(x=Time, y=Global_intensity_avg)) + 
+  geom_line(aes(y=predict(Weekday_day_fit_polynomial)), color="red", group=1) + 
+  geom_line(aes(y=predict(Weekday_night_fit_polynomial)), color="blue", group=2) +
+  geom_line(aes(y=predict(Weekend_day_fit_polynomial)), color="green", group=3) +
+  geom_line(aes(y=predict(Weekend_night_fit_polynomial)), color="pink", group=4) +
+  ggtitle("Polynomial Fits") +
+  ylab("Average Global Intensity") + 
+  xlab("Time")
 

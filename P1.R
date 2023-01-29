@@ -23,6 +23,7 @@ Mode <- function(x) {
 
 # A geometric mean, median, mode, and standard deviation
 A <- df$Global_active_power
+cat("A Arithmetic Mean: ", mean(A, na.rm = TRUE))
 cat("A Geometric Mean: ", exp(mean(log(A))))
 cat("A Median: ", median(A))
 cat("A Mode: ", Mode(A))
@@ -30,6 +31,7 @@ cat("A Standard Deviation: ", sd(A))
 
 # B geometric mean, median, mode, and standard deviation
 B <- na.omit(df$Global_reactive_power)
+cat("B Arithmetic Mean: ", mean(B, na.rm = TRUE))
 cat("B Geometric Mean: ", exp(mean(log(B))))
 cat("B Median: ", median(B))
 cat("B Mode: ", Mode(B))
@@ -37,6 +39,7 @@ cat("B Standard Deviation: ", sd(B))
 
 # C geometric mean, median, mode, and standard deviation
 C <- na.omit(df$Voltage)
+cat("C Arithmetic Mean: ", mean(C, na.rm = TRUE))
 cat("C Geometric Mean: ", exp(mean(log(C))))
 cat("C Median: ", median(C))
 cat("B Mode: ", Mode(C))

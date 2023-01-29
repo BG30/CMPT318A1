@@ -23,36 +23,24 @@ Mode <- function(x) {
 
 # A geometric mean, median, mode, and standard deviation
 A <- df$Global_active_power
-A_geoMean <- exp(mean(log(A)))
-cat("A Geometric Mean: ", A_geoMean)
-A_median <- median(A)
-cat("A Median: ", A_median)
-A_mode <- Mode(A)
-cat("A Mode: ", A_mode)
-A_sd <- sd(A)
-cat("A Standard Deviation: ", A_sd)
+cat("A Geometric Mean: ", exp(mean(log(A))))
+cat("A Median: ", median(A))
+cat("A Mode: ", Mode(A))
+cat("A Standard Deviation: ", sd(A))
 
 # B geometric mean, median, mode, and standard deviation
 B <- na.omit(df$Global_reactive_power)
-B_geoMean <- exp(mean(log(B)))
-cat("B Geometric Mean: ", B_geoMean)
-B_median <- median(B)
-cat("B Median: ", B_median)
-B_mode <- Mode(B)
-cat("B Mode: ", B_mode)
-B_sd <- sd(B)
-cat("B Standard Deviation: ", B_sd)
+cat("B Geometric Mean: ", exp(mean(log(B))))
+cat("B Median: ", median(B))
+cat("B Mode: ", Mode(B))
+cat("B Standard Deviation: ", sd(B))
 
 # C geometric mean, median, mode, and standard deviation
 C <- na.omit(df$Voltage)
-C_geoMean <- exp(mean(log(C)))
-cat("C Geometric Mean: ", C_geoMean)
-C_median <- median(C)
-cat("C Median: ", C_median)
-C_mode <- Mode(C)
-cat("B Mode: ", B_mode)
-C_sd <- sd(C)
-cat("C Standard Deviation", C_sd)
+cat("C Geometric Mean: ", exp(mean(log(C))))
+cat("C Median: ", median(C))
+cat("B Mode: ", Mode(C))
+cat("C Standard Deviation", sd(C))
 
 # Format the time column to date time
 # Day is defined as 06:00:00 to 17:59:59

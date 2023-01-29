@@ -61,7 +61,8 @@ df$Time <- strptime(df$Time, format="%H:%M:%S")
 T_6 <- strptime("06:00:00", format="%H:%M:%S")
 T_18 <- strptime("18:00:00", format="%H:%M:%S")
 dayData <- subset(df, difftime(df$Time, T_6) >= 0 & difftime(df$Time, T_18) < 0)
-nightData <- subset(df, difftime(df$Time, T_6) < 0 | difftime(df$Time, T_18) >= 0)
+nightData <- subset(df, (difftime(df$Time, T_0) >= 0 & difftime(df$Time, T_6) < 0) 
+                    | (difftime(df$Time, T_18) >= 0 & difftime(df$Time, T_0) < 0))
 
 # A Weekday Daytime
 A_weekday_daytime <- subset(df, wday(dayData$Date) != 1 | wday(dayData$Date) != 7)

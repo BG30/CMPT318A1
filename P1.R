@@ -42,7 +42,7 @@ C <- na.omit(df$Voltage)
 cat("C Arithmetic Mean: ", mean(C, na.rm = TRUE))
 cat("C Geometric Mean: ", exp(mean(log(C))))
 cat("C Median: ", median(C))
-cat("B Mode: ", Mode(C))
+cat("C Mode: ", Mode(C))
 cat("C Standard Deviation", sd(C))
 
 # Format the time column to date time

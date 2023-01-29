@@ -58,6 +58,7 @@ cat("C Standard Deviation", C_sd)
 # Day is defined as 06:00:00 to 17:59:59
 # night is defined as 00:00:00 to 05:59:59 and 18:00:00 to 23:59:59
 df$Time <- strptime(df$Time, format="%H:%M:%S")
+T_0 <- strptime("00:00:00", format="%H:%M:%S")
 T_6 <- strptime("06:00:00", format="%H:%M:%S")
 T_18 <- strptime("18:00:00", format="%H:%M:%S")
 dayData <- subset(df, difftime(df$Time, T_6) >= 0 & difftime(df$Time, T_18) < 0)

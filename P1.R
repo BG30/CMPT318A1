@@ -1,7 +1,9 @@
+Pearson_data<- na.omit(Pearson_data)
 library(ggplot2)
 library(lubridate)
 
 getwd()
+# Change directory and data file name according to your setup
 setwd("C:/Users/ricks/Desktop/CMPT 318")
 df <- read.table("Group_Assignment_1_Dataset.txt", header = TRUE, sep = ",")
 
@@ -57,7 +59,7 @@ nightData <- subset(df, (difftime(df$Time, T_0) >= 0 & difftime(df$Time, T_6) < 
                     | (difftime(df$Time, T_18) >= 0 & difftime(df$Time, T_0) < 0))
 
 # A Weekday Daytime
-A_weekday_daytime <- subset(df, wday(dayData$Date) != 1 | wday(dayData$Date) != 7)
+A_weekday_daytime <- subset(df, wday(dayData$Date) != 1 & wday(dayData$Date) != 7)
 cat("A Weekday Daytime Max: ", max(A_weekday_daytime$Global_active_power))
 cat("A Weekday Daytime Min: ", min(A_weekday_daytime$Global_active_power))
 
@@ -153,7 +155,6 @@ cat("Correlation between EF: ", EF)
 cat("Correlation between EG: ", EG)
 cat("Correlation between FG: ", FG)
 
-
 # Part 3: Calculating average Global_intensity values, Linear and Polynomial Regression, graphing results
 Weekday_day_averages <- subset(A_weekday_daytime, select = c("Time", "Global_intensity"))
 Weekday_day_averages <- aggregate(Weekday_day_averages$Global_intensity ~ format(Weekday_day_averages$Time, "%H:%M"), Weekday_day_averages, mean)
@@ -207,7 +208,7 @@ ggplot(data=Weekday_day_averages, mapping=aes(x=Time, y=Global_intensity_avg)) +
   geom_line(aes(y=predict(Weekday_day_fit_linear)), color="red", group=1) + 
   geom_line(aes(y=predict(Weekday_night_fit_linear)), color="blue", group=2) +
   geom_line(aes(y=predict(Weekend_day_fit_linear)), color="green", group=3) +
-  geom_line(aes(y=predict(Weekend_night_fit_linear)), color="pink", group=4)+
+  geom_line(aes(y=predict(Weekend_night_fit_linear)), color="brown", group=4)+
   ggtitle("Linear Fits") +
   ylab("Average Global Intensity") + 
   xlab("Time")
@@ -217,7 +218,7 @@ ggplot(data=Weekday_day_averages, mapping=aes(x=Time, y=Global_intensity_avg)) +
   geom_line(aes(y=predict(Weekday_day_fit_polynomial)), color="red", group=1) + 
   geom_line(aes(y=predict(Weekday_night_fit_polynomial)), color="blue", group=2) +
   geom_line(aes(y=predict(Weekend_day_fit_polynomial)), color="green", group=3) +
-  geom_line(aes(y=predict(Weekend_night_fit_polynomial)), color="pink", group=4) +
+  geom_line(aes(y=predict(Weekend_night_fit_polynomial)), color="brown", group=4) +
   ggtitle("Polynomial Fits") +
   ylab("Average Global Intensity") + 
   xlab("Time")

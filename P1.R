@@ -2,7 +2,7 @@ library(ggplot2)
 library(lubridate)
 
 getwd()
-setwd("C:/Documents/School/6 Spring 2023/CMPT 318/G1/CMPT318A1")
+setwd("C:/Users/ricks/Desktop/CMPT 318")
 df <- read.table("Group_Assignment_1_Dataset.txt", header = TRUE, sep = ",")
 
 # Group 16 -> Filter week 16 data
@@ -76,7 +76,6 @@ A_weekend_nighttime <- subset(df, wday(nightData$Date) == 1 | wday(nightData$Dat
 cat("A Weekend Nighttime Max: ", max(A_weekend_nighttime$Global_active_power))
 cat("A Weekend Nighttime Min: ", min(A_weekend_nighttime$Global_active_power))
 
-
 # B Weekday Daytime
 B_weekday_daytime <- na.omit(subset(df, wday(dayData$Date) != 1 & wday(dayData$Date) != 7))
 cat("B Weekday Daytime Max: ", max(B_weekday_daytime$Global_reactive_power))
@@ -97,6 +96,62 @@ B_weekend_nighttime <- na.omit(subset(df, wday(nightData$Date) == 1 | wday(night
 cat("B Weekend Nightttime Max: ", max(B_weekend_nighttime$Global_reactive_power))
 cat("B Weekend Nightttime Min: ", min(B_weekend_nighttime$Global_reactive_power))
 
+# Part 2: Pearson Correlation
+Pearson_data <- read.table("Group_Assignment_1_Dataset.txt", header = TRUE, sep = ",")
+Pearson_data<- na.omit(Pearson_data)
+Pearson_data <- Pearson_data[complete.cases(Pearson_data),]
+A <- Pearson_data$Global_active_power
+B <- Pearson_data$Global_reactive_power
+C <- Pearson_data$Voltage
+D <- as.numeric(Pearson_data$Global_intensity)
+E <- Pearson_data$Sub_metering_1
+F <- Pearson_data$Sub_metering_2
+G <- Pearson_data$Sub_metering_3
+
+AB <- cor(A, B, method="pearson")
+AC <- cor(A, C, method="pearson")
+AD <- cor(A, D, method="pearson")
+AE <- cor(A, E, method="pearson")
+AF <- cor(A, F, method="pearson")
+AG <- cor(A, G, method="pearson")
+BC <- cor(B, C, method="pearson")
+BD <- cor(B, D, method="pearson")
+BE <- cor(B, E, method="pearson")
+BF <- cor(B, F, method="pearson")
+BG <- cor(B, G, method="pearson")
+CD <- cor(C, D, method="pearson")
+CE <- cor(C, E, method="pearson")
+CF <- cor(C, F, method="pearson")
+CG <- cor(C, G, method="pearson")
+DE <- cor(D, E, method="pearson")
+DF <- cor(D, F, method="pearson")
+DG <- cor(D, G, method="pearson")
+EF <- cor(E, F, method="pearson")
+EG <- cor(E, G, method="pearson")
+FG <- cor(F, G, method="pearson")
+
+cat("Computing the Pearson Correlation")
+cat("Correlation between AB: ", AB)
+cat("Correlation between AC: ", AC)
+cat("Correlation between AD: ", AD)
+cat("Correlation between AE: ", AE)
+cat("Correlation between AF: ", AF)
+cat("Correlation between AG: ", AG)
+cat("Correlation between BC: ", BC)
+cat("Correlation between BD: ", BD)
+cat("Correlation between BE: ", BE)
+cat("Correlation between BF: ", BF)
+cat("Correlation between BG: ", BG)
+cat("Correlation between CD: ", CD)
+cat("Correlation between CE: ", CE)
+cat("Correlation between CF: ", CF)
+cat("Correlation between CG: ", CG)
+cat("Correlation between DE: ", DE)
+cat("Correlation between DF: ", DF)
+cat("Correlation between DG: ", DG)
+cat("Correlation between EF: ", EF)
+cat("Correlation between EG: ", EG)
+cat("Correlation between FG: ", FG)
 
 
 # Part 3: Calculating average Global_intensity values, Linear and Polynomial Regression, graphing results

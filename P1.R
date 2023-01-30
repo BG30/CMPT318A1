@@ -1,4 +1,3 @@
-Pearson_data<- na.omit(Pearson_data)
 library(ggplot2)
 library(lubridate)
 
